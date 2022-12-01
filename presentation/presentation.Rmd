@@ -1,7 +1,7 @@
 ---
-title: "Presentation title"
-subtitle: "Presentation subtitle (if any)"
-author: "Team name <br> Names of team members"
+title: "World Happiness"
+subtitle: "2022"
+author: "Ben Mitchell, Eddie Jiang, Callum Knox, Sarah Brown-Scott"
 institute: "University of Edinburgh"
 date: "`r Sys.Date()`"
 output:
@@ -13,194 +13,595 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-      
 ---
 
-
-
 ```{r load-packages, include = FALSE}
-# Add any additional packages you need to this chunk
 library(tidyverse)
-library(tidymodels)
 library(palmerpenguins)
 library(knitr)
 library(xaringanthemer)
+library(tidymodels)
+library(broom)
 ```
 
 ```{r setup, include=FALSE}
-# For better figure resolution
 knitr::opts_chunk$set(fig.retina = 3, dpi = 300, fig.width = 6, fig.asp = 0.618, out.width = "80%")
 ```
 
-```{r load-data, include=FALSE}
-# Load your data here
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+style_mono_dark(base_color = "ivory")
+```
 
+```{r load-data, include=FALSE}
+happiness <- read_csv("presentation_files/2015.csv")
+countries <- read_csv("presentation_files/countries of the world.csv")
 ```
 
 ```{r include=FALSE}
-style_xaringan(
-  title_slide_background_image = "img/confetti.jpg"
-)
+countries$Country[countries$Country == "Cote d\'Ivoire"] = "Ivory Coast"
+countries$Country[countries$Country == "Bosnia & Herzegovina"] = "Bosnia and Herzegovina"
+countries$Country[countries$Country == "Central African Rep."] = "Central African Republic"
+countries$Country[countries$Country == "Congo, Dem. Rep."] = "Congo (Kinshasa)"
+countries$Country[countries$Country == "Congo, Repub. of the"] = "Congo (Brazzaville)"
 ```
 
-class: center, middle
-
-## A statement of the overall goal / research question
-
----
-
-class: inverse, center, middle
-
-# Section title
-
----
-
-# Hello World
-
-- Click the `Knit` button to compile your presentation
-
-- Make sure to commit and push all resulting files to your GitHub repo
-
----
-
-class: inverse, middle, center
-
-# Using xaringan
-
----
-
-# xaringan
-
-- The presentation is created using the `xaringan` package
-
-- Use `---` to separate slides and `--` for incremental builds
-
---
-
-- Like this
-
----
-
-# Layouts
-
-You can use plain text
-
-- or bullet points
-
-.pull-left[
-or text in two columns $^*$
-]
-.pull-right[
-- like
-- this
-]
-
-.footnote[
-[*] And add footnotes
-]
-
----
-
-# Code
-
-```{r boring-regression}
-# a boring regression
-model <- lm(dist ~ speed, data = cars)
-tidy(model)
-glance(model)
+```{r include=FALSE}
+happiness_countries <- left_join(happiness, countries, by = "Country")
 ```
 
+```{r include=FALSE}
+colnames(happiness_countries)[4] <- "happiness_score"
+colnames(happiness_countries)[6] <- "economy"
+colnames(happiness_countries)[7] <- "family"
+colnames(happiness_countries)[8] <- "health"
+colnames(happiness_countries)[10] <- "trust"
+colnames(happiness_countries)[9] <- "freedom"
+colnames(happiness_countries)[20] <- "gdp"
+colnames(happiness_countries)[19] <- "infant_mortality"
+colnames(happiness_countries)[22] <- "phones"
+```
+
+
+
+class: centre, middle
+
+##Question & Hypothesis
 ---
 
-# Plots
+class: left, middle
+#Question
 
-```{r recode-species, echo = FALSE}
-# In this chunk I'm doing a bunch of analysis that I don't want to present 
-# in my slides. But I need the resulting data frame for a plot I want to present.
-iris_modified <- iris %>%
-  mutate(Species = fct_other(Species, keep = "setosa"))
-```
+-The research question we will be investigating is, 'How  Do a Range of Factors Affect Worldwide Happiness?'.
 
-```{r plot-iris, echo = FALSE}
-# Code hidden with echo = FALSE
-# Uses modified iris dataset from previous chunk
-# Play around with height and width until you're happy with the look
-ggplot(data = iris_modified, mapping = aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
-  geom_point() + 
-  theme_minimal() # theme options: https://ggplot2.tidyverse.org/reference/ggtheme.html
-```
-
----
-
-## Plot and text
-
-.pull-left[
-- Some text
-- goes here
-]
-.pull-right[
-```{r warning=FALSE, out.width="100%", fig.width=4, echo=FALSE}
-# see how I changed out.width and fig.width from defaults
-# to make the figure bigger
-ggplot(penguins, aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot() +
-  theme_minimal()
-```
-]
+- We selected this question as mental health is a prominent issue in society and analysis of the data in this way could give some indicators of ways to improve the overall happiness of a country.
 
 ---
 
-# Tables
+class: left, middle
 
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
+- We hypothesise that in countries with higher GDP and freedom rating , the happiness score will be higher than countries with a lower GDP and freedom rating.
 
-```{r iris-table, echo = FALSE}
-kable(head(iris), format = "html")
-```
+-We hypothesise that in countries where Government Corruption is higher, the happiness score will be lower than in countries with less government corruption.
 
 ---
 
-# Images
+class: left, middle
 
-```{r castle, echo = FALSE, out.width = "55%", fig.align = "center", fig.cap = "Image credit: Photo by Jörg Angeli on Unsplash."}
-include_graphics("https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
+# Dataset Information
+
+-To try and answer this question we picked 2 data sets.
+
+-They were "World happiness Report" from 2015, and "Countries of The World.
+
+-World Happiness Report contains data from a survey about overall happiness in 158 countries
+
+```{r echo=FALSE}
+glimpse(happiness)
 ```
 
-Or you can also include a full page image. See next slide.
+- Variables economy, family, health, freedom, trust, and generosity show how happy people are with these things.
 
 ---
 
-background-image: url(https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)
+class: left, middle
+
+-Countries of The World has general statistics about all countires.
+
+-GDP, literacy%, population density etc.
+
+-We combined the two data sets as we thought that this would help answer the question.
+
+-Combined sets has opinions and facts to compare.
+---
+
+class: left, middle
+
+#Countries
+
+```{r echo=FALSE}
+glimpse(countries)
+```
+---
+class: left, middle
+
+#Summary Statistics
+
+Variable | Mean | Max Value | Min Value | Standard Deviation
+--------|---------|---------|-----------|---------------------
+`Happiness Score` | `5.38` |  `7.59`  | `2.84`  | `1.145`
+`Health` | `0.63` | `1.03`  | `0`  | `0.247`
+`Economy` | `0.85` |  `1.69` |  `0` | `0.403`
+`Trust` | `0.143`  |  `0.552` | `0`  | `0.120`
+`Family` | `0.991`  | `1.4`  |  `0` | `0.272`
+`Freedom` |  `0.429` | `0.668`  | `0`  | `0.151`
 
 ---
 
-# Math Expressions
+class: left, center
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. &#36;\alpha+\beta$ renders $\alpha+\beta$. You can use the display style with double dollar signs:
+##Plots
 
+---
+class: left, center
+
+-As Family Score increases Happiness Score also Increases
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness %>%
+ggplot(data = happiness_countries, 
+       mapping = aes(x = family, y = happiness_score))+
+  geom_jitter() +
+  geom_smooth(method = "lm", se = F) +
+  labs(title = "Happiness Score with Family",
+       x = "Family",
+       y = "Happiness Score") + 
+  theme(plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
 ```
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-```
 
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
-
-Limitations:
-
-1. The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-1. There should not be spaces after the opening `$` or before the closing `$`.
-
-1. Math does not work on the title slide (see [#61](https://github.com/yihui/xaringan/issues/61) for a workaround).
 
 ---
 
-# Feeling adventurous?
+class: left, center
 
-- Want to find out more about `xaringan`? See https://slides.yihui.name/xaringan/#1.
+-As Freedom Score increases Happiness Score also Increases
 
-- You are welcome to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness %>%
+ggplot(data = happiness_countries, 
+       mapping = aes(x = freedom, y = happiness_score))+
+  geom_jitter()+
+  geom_smooth(method = "lm", se = F) +
+  labs(title = "Happiness Score with Freedom",
+       x = "Freedom",
+       y = "Happiness Score") + 
+  theme(plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
 
-- But some of you might want to play around with slide styling. The 
-`xaringanthemer` provides some solutions for this that: https://pkg.garrickadenbuie.com/xaringanthemer.
+```
 
-- And if you want more bells and whistles, there is also `xaringanExtra`: https://pkg.garrickadenbuie.com/xaringanExtra.
+
+---
+class: left, center
+
+-As Health Score increases Happiness Score also Increases
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness %>%
+ggplot(data = happiness_countries, 
+       mapping = aes(x = health, y = happiness_score))+
+  geom_jitter()+
+  geom_smooth(method = "lm", se = F) +
+  labs(title = "Happiness Score with Health",
+       x = "Health",
+       y = "Happiness Score") + 
+  theme(plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
+
+```
+
+
+---
+class: left, center
+
+-As Trust Score increases Happiness Score also Increases
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness %>%
+ggplot(data = happiness_countries, 
+       mapping = aes(x = trust, y = happiness_score))+
+  geom_jitter()+
+  geom_smooth(method = "lm", se = F) +
+  labs(title = "Happiness Score with Government Trust",
+       x = "Trust",
+       y = "Happiness Score") + 
+  theme(plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
+
+```
+
+
+---
+class: left, center
+
+-As Economy Score increases Happiness Score also Increases
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness %>%
+ggplot(data = happiness_countries, 
+       mapping = aes(x = economy, y = happiness_score))+
+  geom_jitter()+
+  geom_smooth(method = "lm", se = F) +
+  labs(title = "Happiness Score with Economy", 
+       x = "Economy",
+       y = "Happiness Score") + 
+  theme(plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
+```
+---
+class: left, center
+
+-Some regions are happier on average than others
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness_countries %>%
+  ggplot(data = happiness_countries, 
+         mapping = aes(x = happiness_score, y = Region.x))+
+  geom_boxplot()+
+  labs(title = "Happiness Score shown by Region",
+       subtitle = "Regions are split into sub regions",
+       x = "Happiness Score",
+       y = "Region") + 
+  theme(plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        plot.subtitle = element_text(size = rel(1),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
+```
+---
+class: left, center
+
+##Models
+
+---
+class: left, center
+
+-We are 95% confident that for each additional  0.1 of a point of economy score, we would expect gdp to increase by $1734.00 to $2390.46, on average
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness %>%
+  ggplot(data = happiness_countries, 
+         mapping = aes(x = economy, y = gdp))+
+  geom_jitter()+
+  geom_smooth(method = "lm", se = F) +
+  labs(title = "Economy Score against GDP",
+       x = "Economy Score",
+       y = "GDP") + 
+  theme(plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
+```
+---
+class: left, center
+
+-we are 95% confident that for each additional  0.1 of a point of health score, we would expect infant mortality to decrease by 963.71 to 1418.07, on average.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness_countries %>%
+    drop_na(infant_mortality) %>%
+  ggplot(data = happiness_countries,
+         mapping = aes(x = health, y = infant_mortality,
+                       na.rm = TRUE))+
+  geom_jitter() +
+  geom_smooth(method = "lm", se = F) +
+  labs(title = "Infant Mortality against Health",
+       x = "Health Score",
+       y = "Infant Mortality") +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
+```
+---
+class: left, center
+
+-No correlation.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+happiness_countries %>%
+  drop_na(phones) %>%
+  ggplot(data = happiness_countries,
+         mapping = aes(x = phones, y = happiness_score,
+                       na.rm = TRUE))+
+  geom_jitter() +
+  expand_limits(y = c(0, 10)) +
+  labs(title = "Happiness Score against Phones per 1000 People",
+       x = "Phones Per 1000 People",
+       y = "Happiness Score") +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        plot.background = element_rect(fill = "aquamarine4"),
+        axis.line = element_line(size = rel(3), 
+                                 arrow = arrow(), 
+                                 colour = "black"),
+        panel.background = element_rect(fill = "gray90", 
+                                        colour = "aquamarine4"),
+        axis.title.y = element_text(size = rel(1.5), 
+                                    angle = (90),
+                                    color = "white"),
+        axis.title.x = element_text(size = rel(1.5),
+                                    color = "white"),
+        panel.grid.major = element_line(colour = "aquamarine4"),
+        panel.grid = element_line(colour = "aquamarine4"),
+        plot.title = element_text(size = rel(1.2),
+                                  color = "white"),
+        legend.text = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.title = element_text(size = rel(1.5),
+                                   color = "black"),
+        legend.background = element_rect(fill = "gray90"),
+        legend.key = element_rect(fill = "gray90"),
+        axis.text = element_text(color = "white")
+        )
+```
+---
+class: middle, center
+
+##Conclusion & Limitations
+
+---
+class: left, middle
+
+#Limitations
+
+-People surveyed.
+
+-Issues in the country may affect results of survey.
+
+-Outdated
+---
+class: left, middle
+
+#Conclusions
+
+-"We hypothesise that in countries with higher GDP and freedom rating , the happiness score will be higher than countries with a lower GDP and freedom rating."
+
+-"We hypothesise that in countries where Government Corruption is higher, the happiness score will be lower than in countries with less government corruption."
+
+-Most graphs showed expected trends.
+
+-Certain factors could be seen to affect overall happiness.
+
+-Some factors not in the dataset will affect happiness
+
+---
+
+
+
+```{r include=FALSE, eval = FALSE}
+#model predicting economy score from GDP
+set.seed(1234)
+
+economy_boot <- bootstraps(happiness_countries, times = 5000)
+
+economy_models <- economy_boot %>%
+  mutate(
+    model = map(splits, ~lm(gdp ~ economy, data = .)),
+    coef_info = map(model, tidy)
+  )
+
+economy_coef <- economy_models %>%
+  unnest(coef_info)
+
+economy_confidence <- int_pctl(economy_models, coef_info)
+```
+
+```{r include=FALSE, eval = FALSE}
+#model predicting health score from infant mortality
+set.seed(1234)
+
+health_boot <- bootstraps(happiness_countries, times = 5000)
+
+health_models <- health_boot %>%
+  mutate(
+    model = map(splits, ~lm(infant_mortality ~ health, data = .)),
+    coef_info = map(model, tidy)
+  )
+
+haelth_coef <- health_models %>%
+  unnest(coef_info)
+
+health_confidence <- int_pctl(health_models, coef_info)
+```
+
+```{r include=FALSE, eval = FALSE}
+#model predicting happiness from phones per 1000 people
+set.seed(7399)
+
+phones_boot <- bootstraps(happiness_countries, times = 5000)
+
+phones_models <- phones_boot %>%
+  mutate(
+    model = map(splits, ~lm(happiness_score ~ phones, data = .)),
+    coef_info = map(model, tidy)
+  )
+
+phones_coef <- phones_models %>%
+  unnest(coef_info)
+
+phones_confidence <- int_pctl(phones_models, coef_info)
+```
+
+```{r include=FALSE, eval = FALSE}
+phones_confidence_mean <- phones_confidence %>%
+  filter(term != "(Intercept)")
+
+lower <- mean(phones_confidence_0$.lower)
+upper <- mean(phones_confidence_0$.upper)
+```

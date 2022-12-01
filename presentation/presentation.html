@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Presentation title</title>
+    <title>World Happiness</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Team name   Names of team members" />
-    <meta name="date" content="2022-11-16" />
+    <meta name="author" content="Ben Mitchell, Eddie Jiang, Callum Knox, Sarah Brown-Scott" />
+    <meta name="date" content="2022-12-01" />
     <script src="libs/header-attrs-2.18/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -13,19 +13,19 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Presentation title
+# World Happiness
 ]
 .subtitle[
-## Presentation subtitle (if any)
+## 2022
 ]
 .author[
-### Team name <br> Names of team members
+### Ben Mitchell, Eddie Jiang, Callum Knox, Sarah Brown-Scott
 ]
 .institute[
 ### University of Edinburgh
 ]
 .date[
-### 2022-11-16
+### 2022-12-01
 ]
 
 ---
@@ -41,223 +41,235 @@ class: center, middle, inverse, title-slide
 
 
 
-class: center, middle
 
-## A statement of the overall goal / research question
+
+
+
+
+
+class: centre, middle
+
+##Question &amp; Hypothesis
+---
+
+class: left, middle
+#Question
+
+-The research question we will be investigating is, 'How  Do a Range of Factors Affect Worldwide Happiness?'.
+
+- We selected this question as mental health is a prominent issue in society and analysis of the data in this way could give some indicators of ways to improve the overall happiness of a country.
 
 ---
 
-class: inverse, center, middle
+class: left, middle
 
-# Section title
+- We hypothesise that in countries with higher GDP and freedom rating , the happiness score will be higher than countries with a lower GDP and freedom rating.
 
----
-
-# Hello World
-
-- Click the `Knit` button to compile your presentation
-
-- Make sure to commit and push all resulting files to your GitHub repo
+-We hypothesise that in countries where Government Corruption is higher, the happiness score will be lower than in countries with less government corruption.
 
 ---
 
-class: inverse, middle, center
+class: left, middle
 
-# Using xaringan
+# Dataset Information
 
----
+-To try and answer this question we picked 2 data sets.
 
-# xaringan
+-They were "World happiness Report" from 2015, and "Countries of The World.
 
-- The presentation is created using the `xaringan` package
+-World Happiness Report contains data from a survey about overall happiness in 158 countries
 
-- Use `---` to separate slides and `--` for incremental builds
-
---
-
-- Like this
-
----
-
-# Layouts
-
-You can use plain text
-
-- or bullet points
-
-.pull-left[
-or text in two columns `\(^*\)`
-]
-.pull-right[
-- like
-- this
-]
-
-.footnote[
-[*] And add footnotes
-]
-
----
-
-# Code
-
-
-```r
-# a boring regression
-model &lt;- lm(dist ~ speed, data = cars)
-tidy(model)
-```
 
 ```
-## # A tibble: 2 × 5
-##   term        estimate std.error statistic  p.value
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)   -17.6      6.76      -2.60 1.23e- 2
-## 2 speed           3.93     0.416      9.46 1.49e-12
+## Rows: 158
+## Columns: 12
+## $ Country                         &lt;chr&gt; "Switzerland", "Iceland", "Denmark", "…
+## $ Region                          &lt;chr&gt; "Western Europe", "Western Europe", "W…
+## $ `Happiness Rank`                &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,…
+## $ `Happiness Score`               &lt;dbl&gt; 7.587, 7.561, 7.527, 7.522, 7.427, 7.4…
+## $ `Standard Error`                &lt;dbl&gt; 0.03411, 0.04884, 0.03328, 0.03880, 0.…
+## $ `Economy (GDP per Capita)`      &lt;dbl&gt; 1.39651, 1.30232, 1.32548, 1.45900, 1.…
+## $ Family                          &lt;dbl&gt; 1.34951, 1.40223, 1.36058, 1.33095, 1.…
+## $ `Health (Life Expectancy)`      &lt;dbl&gt; 0.94143, 0.94784, 0.87464, 0.88521, 0.…
+## $ Freedom                         &lt;dbl&gt; 0.66557, 0.62877, 0.64938, 0.66973, 0.…
+## $ `Trust (Government Corruption)` &lt;dbl&gt; 0.41978, 0.14145, 0.48357, 0.36503, 0.…
+## $ Generosity                      &lt;dbl&gt; 0.29678, 0.43630, 0.34139, 0.34699, 0.…
+## $ `Dystopia Residual`             &lt;dbl&gt; 2.51738, 2.70201, 2.49204, 2.46531, 2.…
 ```
 
-```r
-glance(model)
-```
-
-```
-## # A tibble: 1 × 12
-##   r.squared adj.r.squa…¹ sigma stati…²  p.value    df logLik   AIC   BIC devia…³
-##       &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1     0.651        0.644  15.4    89.6 1.49e-12     1  -207.  419.  425.  11354.
-## # … with 2 more variables: df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated
-## #   variable names ¹​adj.r.squared, ²​statistic, ³​deviance
-```
+- Variables economy, family, health, freedom, trust, and generosity show how happy people are with these things.
 
 ---
 
-# Plots
+class: left, middle
 
+-Countries of The World has general statistics about all countires.
 
+-GDP, literacy%, population density etc.
 
-&lt;img src="presentation_files/figure-html/plot-iris-1.png" width="80%" /&gt;
+-We combined the two data sets as we thought that this would help answer the question.
 
+-Combined sets has opinions and facts to compare.
 ---
 
-## Plot and text
+class: left, middle
 
-.pull-left[
-- Some text
-- goes here
-]
-.pull-right[
-&lt;img src="presentation_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
-]
+#Countries
 
----
-
-# Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:right;"&gt; Sepal.Length &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Sepal.Width &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Petal.Length &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Petal.Width &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Species &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 5.1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4.9 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4.7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 4.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 5.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.6 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:right;"&gt; 5.4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.9 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; setosa &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
----
-
-# Images
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1650&amp;q=80" alt="Image credit: Photo by Jörg Angeli on Unsplash." width="55%" /&gt;
-&lt;p class="caption"&gt;Image credit: Photo by Jörg Angeli on Unsplash.&lt;/p&gt;
-&lt;/div&gt;
-
-Or you can also include a full page image. See next slide.
-
----
-
-background-image: url(https://images.unsplash.com/photo-1535448033526-c0e85c9e6968?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1650&amp;q=80)
-
----
-
-# Math Expressions
-
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. &amp;#36;\alpha+\beta$ renders `\(\alpha+\beta\)`. You can use the display style with double dollar signs:
 
 ```
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+## Rows: 227
+## Columns: 20
+## $ Country                              &lt;chr&gt; "Afghanistan", "Albania", "Algeri…
+## $ Region                               &lt;chr&gt; "ASIA (EX. NEAR EAST)", "EASTERN …
+## $ Population                           &lt;dbl&gt; 31056997, 3581655, 32930091, 5779…
+## $ `Area (sq. mi.)`                     &lt;dbl&gt; 647500, 28748, 2381740, 199, 468,…
+## $ `Pop. Density (per sq. mi.)`         &lt;chr&gt; "48,0", "124,6", "13,8", "290,4",…
+## $ `Coastline (coast/area ratio)`       &lt;chr&gt; "0,00", "1,26", "0,04", "58,29", …
+## $ `Net migration`                      &lt;chr&gt; "23,06", "-4,93", "-0,39", "-20,7…
+## $ `Infant mortality (per 1000 births)` &lt;dbl&gt; 16307, 2152, 31, 927, 405, 19119,…
+## $ `GDP ($ per capita)`                 &lt;dbl&gt; 700, 4500, 6000, 8000, 19000, 190…
+## $ `Literacy (%)`                       &lt;dbl&gt; 360, 865, 700, 970, 1000, 420, 95…
+## $ `Phones (per 1000)`                  &lt;chr&gt; "3,2", "71,2", "78,1", "259,5", "…
+## $ `Arable (%)`                         &lt;chr&gt; "12,13", "21,09", "3,22", "10", "…
+## $ `Crops (%)`                          &lt;chr&gt; "0,22", "4,42", "0,25", "15", "0"…
+## $ `Other (%)`                          &lt;dbl&gt; 8765, 7449, 9653, 75, 9778, 9735,…
+## $ Climate                              &lt;dbl&gt; 1, 3, 1, 2, 3, NA, 2, 2, 3, 4, 2,…
+## $ Birthrate                            &lt;dbl&gt; 466, 1511, 1714, 2246, 871, 4511,…
+## $ Deathrate                            &lt;dbl&gt; 2034, 522, 461, 327, 625, 242, 53…
+## $ Agriculture                          &lt;chr&gt; "0,38", "0,232", "0,101", NA, NA,…
+## $ Industry                             &lt;chr&gt; "0,24", "0,188", "0,6", NA, NA, "…
+## $ Service                              &lt;chr&gt; "0,38", "0,579", "0,298", NA, NA,…
 ```
+---
+class: left, middle
 
-`$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$`
+#Summary Statistics
 
-Limitations:
-
-1. The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
-
-1. There should not be spaces after the opening `$` or before the closing `$`.
-
-1. Math does not work on the title slide (see [#61](https://github.com/yihui/xaringan/issues/61) for a workaround).
+Variable | Mean | Max Value | Min Value | Standard Deviation
+--------|---------|---------|-----------|---------------------
+`Happiness Score` | `5.38` |  `7.59`  | `2.84`  | `1.145`
+`Health` | `0.63` | `1.03`  | `0`  | `0.247`
+`Economy` | `0.85` |  `1.69` |  `0` | `0.403`
+`Trust` | `0.143`  |  `0.552` | `0`  | `0.120`
+`Family` | `0.991`  | `1.4`  |  `0` | `0.272`
+`Freedom` |  `0.429` | `0.668`  | `0`  | `0.151`
 
 ---
 
-# Feeling adventurous?
+class: left, center
 
-- Want to find out more about `xaringan`? See https://slides.yihui.name/xaringan/#1.
+##Plots
 
-- You are welcome to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+---
+class: left, center
 
-- But some of you might want to play around with slide styling. The 
-`xaringanthemer` provides some solutions for this that: https://pkg.garrickadenbuie.com/xaringanthemer.
+-As Family Score increases Happiness Score also Increases
 
-- And if you want more bells and whistles, there is also `xaringanExtra`: https://pkg.garrickadenbuie.com/xaringanExtra.
+&lt;img src="presentation_files/figure-html/unnamed-chunk-6-1.png" width="80%" /&gt;
+
+
+---
+
+class: left, center
+
+-As Freedom Score increases Happiness Score also Increases
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-7-1.png" width="80%" /&gt;
+
+
+---
+class: left, center
+
+-As Health Score increases Happiness Score also Increases
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-8-1.png" width="80%" /&gt;
+
+
+---
+class: left, center
+
+-As Trust Score increases Happiness Score also Increases
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-9-1.png" width="80%" /&gt;
+
+
+---
+class: left, center
+
+-As Economy Score increases Happiness Score also Increases
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-10-1.png" width="80%" /&gt;
+---
+class: left, center
+
+-Some regions are happier on average than others
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-11-1.png" width="80%" /&gt;
+---
+class: left, center
+
+##Models
+
+---
+class: left, center
+
+-We are 95% confident that for each additional  0.1 of a point of economy score, we would expect gdp to increase by $1734.00 to $2390.46, on average
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-12-1.png" width="80%" /&gt;
+---
+class: left, center
+
+-we are 95% confident that for each additional  0.1 of a point of health score, we would expect infant mortality to decrease by 963.71 to 1418.07, on average.
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-13-1.png" width="80%" /&gt;
+---
+class: left, center
+
+-No correlation.
+
+&lt;img src="presentation_files/figure-html/unnamed-chunk-14-1.png" width="80%" /&gt;
+---
+class: middle, center
+
+##Conclusion &amp; Limitations
+
+---
+class: left, middle
+
+#Limitations
+
+-People surveyed.
+
+-Issues in the country may affect results of survey.
+
+-Outdated
+---
+class: left, middle
+
+#Conclusions
+
+-"We hypothesise that in countries with higher GDP and freedom rating , the happiness score will be higher than countries with a lower GDP and freedom rating."
+
+-"We hypothesise that in countries where Government Corruption is higher, the happiness score will be lower than in countries with less government corruption."
+
+-Most graphs showed expected trends.
+
+-Certain factors could be seen to affect overall happiness.
+
+-Some factors not in the dataset will affect happiness
+
+---
+
+
+
+
+
+
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

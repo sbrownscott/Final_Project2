@@ -43,19 +43,23 @@
   --header-h3-font-size: 1.75rem;
 
   /* Colors */
-  --text-color: #000;
-  --header-color: #000;
-  --background-color: #FFF;
-  --link-color: rgb(249, 38, 114);
+  --text-color: #FFFFFC;
+  --header-color: ivory;
+  --background-color: #262624;
+  --link-color: ivory;
+  --text-bold-color: ivory;
   --code-highlight-color: rgba(255,255,0,0.5);
-  --inverse-text-color: #d6d6d6;
-  --inverse-background-color: #272822;
-  --inverse-header-color: #f3f3f3;
-  --inverse-link-color: rgb(249, 38, 114);
-  --title-slide-background-color: #272822;
-  --title-slide-text-color: #d6d6d6;
-  --header-background-color: #000;
-  --header-background-text-color: #FFF;
+  --inverse-text-color: #262624;
+  --inverse-background-color: ivory;
+  --inverse-header-color: #262624;
+  --inverse-link-color: ivory;
+  --title-slide-background-color: ivory;
+  --title-slide-text-color: #262624;
+  --header-background-color: ivory;
+  --header-background-text-color: #262624;
+  --base: ivory;
+  --white: #FFFFFC;
+  --black: #262624;
 }
 
 html {
@@ -96,15 +100,16 @@ h1, h2, h3 {
 }
 .remark-inline-code {
   font-size: var(--code-inline-font-size);
-  color: #000;
+  color: ivory;
 }
 .remark-slide-number {
-  color: #272822;
+  color: ivory;
   opacity: 1;
   font-size: 0.9rem;
 }
 strong {
   font-weight: bold;
+  color: var(--text-bold-color);
 }
 a, a > code {
   color: var(--link-color);
@@ -135,8 +140,6 @@ a, a > code {
 }
 .title-slide {
   background-color: var(--title-slide-background-color);
-  background-image: url("img/confetti.jpg");
-  background-size: cover;
 }
 .title-slide .remark-slide-number {
   display: none;
@@ -148,10 +151,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: #777;
+  color: ivory99;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: #000;
+  color: ivory;
 }
 .right-column {
   width: 75%;
@@ -173,7 +176,7 @@ img, video, iframe {
   max-width: 100%;
 }
 blockquote {
-  border-left: solid 5px lightgray;
+  border-left: solid 5px ivory80;
   padding-left: 1em;
 }
 .remark-slide table {
@@ -190,7 +193,7 @@ th, td {
 .remark-slide table:not(.table-unshaded) thead,
 .remark-slide table:not(.table-unshaded) tfoot,
 .remark-slide table:not(.table-unshaded) tr:nth-child(even) {
-  background: #eee;
+  background: #4C4C48;
 }
 table.dataTable tbody {
   background-color: var(--background-color);
@@ -200,7 +203,7 @@ table.dataTable.display tbody tr.odd {
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
-  background-color: #eee;
+  background-color: #4C4C48;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);
@@ -270,4 +273,22 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   }
 }
 
+.base {
+  color: var(--base);
+}
+.bg-base {
+  background-color: var(--base);
+}
+.white {
+  color: var(--white);
+}
+.bg-white {
+  background-color: var(--white);
+}
+.black {
+  color: var(--black);
+}
+.bg-black {
+  background-color: var(--black);
+}
 

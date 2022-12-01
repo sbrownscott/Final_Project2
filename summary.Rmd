@@ -119,8 +119,6 @@ A country such as South Africa which has a happiness ranking of 113, has also be
 
 - High levels of inequality tends to lead to low level of wellbeing and life satisfaction in developed countries. But for developing countries they tend to have more complicated relationships between happiness and inequality. People in less equal countries are less likely to believe that most people can be trusted and less interest in politics. They are more likely to believe that there needs to be more respect for authority, they can also be more likely to think that children should be independent rather than obedient. 
 
-'Therefore the GDP and Freedom Rating  are proportional to the happiness score.'
-
 - Our final hypothesis was that 'countries where Government Corruption is higher, the happiness score will be lower'. The trust variable involves the amount of government corruption experienced in each individual country. We created a graph with the variables happiness score and trust. The findings of this graph agree with the original hypothesis but there was some variance as the trend was not as extreme as we originally expected. As government corruption decreased, the happiness score increases but the gradient line, given by geom smooth, was not as steep as we had foreseen.
 
 - All of our hypothesis were correct but only one was as certain as we had expected, therefore our data analysis added value to the dataset as it was able to show some unanticipated results. 
